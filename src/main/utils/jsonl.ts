@@ -37,8 +37,7 @@ const logger = createLogger('Util:jsonl');
 
 const defaultProvider = new LocalFileSystemProvider();
 
-// Re-export for backwards compatibility
-export { extractCwd, extractFirstUserMessagePreview } from './metadataExtraction';
+export { extractCwd } from './metadataExtraction';
 export { checkMessagesOngoing } from './sessionStateDetection';
 
 // =============================================================================
@@ -230,7 +229,7 @@ function parseMessageType(type?: string): MessageType | null {
  * Messages without a requestId (user, system, etc.) pass through unchanged.
  * Returns a new array with only the last entry per requestId kept.
  */
-export function deduplicateByRequestId(messages: ParsedMessage[]): ParsedMessage[] {
+function deduplicateByRequestId(messages: ParsedMessage[]): ParsedMessage[] {
   // Map from requestId -> index of last occurrence
   const lastIndexByRequestId = new Map<string, number>();
   for (let i = 0; i < messages.length; i++) {
