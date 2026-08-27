@@ -106,6 +106,7 @@ export const DateGroupedSessions = (): React.JSX.Element => {
   const [showCountTooltip, setShowCountTooltip] = useState(false);
 
   const hiddenSet = useMemo(() => new Set(hiddenSessionIds), [hiddenSessionIds]);
+  const pinnedSet = useMemo(() => new Set(pinnedSessionIds), [pinnedSessionIds]);
   const hasHiddenSessions = hiddenSessionIds.length > 0;
 
   // Filter out hidden sessions unless showHiddenSessions is on
@@ -147,7 +148,7 @@ export const DateGroupedSessions = (): React.JSX.Element => {
         items.push({
           type: 'session',
           session,
-          isPinned: pinnedSessionIds.includes(session.id),
+          isPinned: pinnedSet.has(session.id),
           isHidden: hiddenSet.has(session.id),
           id: `session-${session.id}`,
         });
@@ -202,7 +203,7 @@ export const DateGroupedSessions = (): React.JSX.Element => {
   }, [
     sessionSortMode,
     contextSortedSessions,
-    pinnedSessionIds,
+    pinnedSet,
     hiddenSet,
     pinnedSessions,
     nonEmptyCategories,
@@ -534,8 +535,7 @@ export const DateGroupedSessions = (): React.JSX.Element => {
                   <div
                     className="sticky top-0 flex h-full items-center gap-1.5 border-t px-4 py-1.5 text-[11px] font-semibold uppercase tracking-wider"
                     style={{
-                      backgroundColor:
-                        'var(--color-surface-sidebar)',
+                      backgroundColor: 'var(--color-surface-sidebar)',
                       color: 'var(--color-text-muted)',
                       borderColor: 'var(--color-border-emphasis)',
                     }}
@@ -547,8 +547,7 @@ export const DateGroupedSessions = (): React.JSX.Element => {
                   <div
                     className="sticky top-0 flex h-full items-center border-t px-4 py-1.5 text-[11px] font-semibold uppercase tracking-wider"
                     style={{
-                      backgroundColor:
-                        'var(--color-surface-sidebar)',
+                      backgroundColor: 'var(--color-surface-sidebar)',
                       color: 'var(--color-text-muted)',
                       borderColor: 'var(--color-border-emphasis)',
                     }}

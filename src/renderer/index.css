@@ -4,22 +4,22 @@
 
 /* Theme CSS Custom Properties */
 :root {
-  /* Dark theme (default) - Soft Charcoal palette */
-  --color-surface: #141416; /* Main Chat Area Background (Soft Matte Charcoal) */
-  --color-surface-raised: #27272a; /* Active/Selected items (Zinc-800) */
-  --color-surface-overlay: #27272a; /* Overlay surfaces */
-  --color-surface-sidebar: #0f0f11; /* Sidebar Background (slightly darker) */
-  --color-border: rgba(255, 255, 255, 0.05); /* Borders/Dividers (5% white) */
-  --color-border-subtle: rgba(255, 255, 255, 0.05); /* Subtle borders (5% white) */
-  --color-border-emphasis: rgba(255, 255, 255, 0.1); /* Emphasis borders (10% white) */
-  --color-text: #fafafa;
-  --color-text-secondary: #a1a1aa;
-  --color-text-muted: #71717a;
+  /* Dark theme (default) - Ink and signal palette */
+  --color-surface: #111315;
+  --color-surface-raised: #1b2021;
+  --color-surface-overlay: #22292a;
+  --color-surface-sidebar: #0b0e0f;
+  --color-border: rgba(224, 239, 232, 0.09);
+  --color-border-subtle: rgba(224, 239, 232, 0.06);
+  --color-border-emphasis: rgba(224, 239, 232, 0.16);
+  --color-text: #edf4ef;
+  --color-text-secondary: #aebdb6;
+  --color-text-muted: #708078;
 
   /* Scrollbar colors */
-  --scrollbar-thumb: rgba(255, 255, 255, 0.15);
-  --scrollbar-thumb-hover: rgba(255, 255, 255, 0.25);
-  --scrollbar-thumb-active: rgba(255, 255, 255, 0.35);
+  --scrollbar-thumb: rgba(174, 211, 194, 0.18);
+  --scrollbar-thumb-hover: rgba(174, 211, 194, 0.3);
+  --scrollbar-thumb-active: rgba(174, 211, 194, 0.42);
 
   /* Search highlights */
   --highlight-bg: rgba(202, 138, 4, 0.7);
@@ -390,13 +390,23 @@
 }
 
 body {
-  font-family:
-    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
-    'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+  font-family: 'Avenir Next', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: var(--color-surface);
   color: var(--color-text);
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+::selection {
+  background: rgba(92, 214, 174, 0.3);
+  color: #f2fff8;
 }
 
 /* Theme transition — scoped to explicit toggle to avoid tracking transition state
@@ -411,6 +421,38 @@ body.theme-transitioning {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
+  background-color: var(--color-surface);
+  background-image:
+    linear-gradient(rgba(147, 192, 171, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(147, 192, 171, 0.025) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+#pane-container,
+.sidebar-header {
+  animation: workspace-enter 0.45s ease-out both;
+}
+
+@keyframes workspace-enter {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
 /* macOS window integration */
